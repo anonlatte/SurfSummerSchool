@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Практика по компонентам</string>
+    <string name="title_lifecycle">Жизненный цикл</string>
+    <string name="title_lifecycle_usual">ЖЦ по умолчанию</string>
+    <string name="title_lifecycle_fixed">ЖЦ с сохранением</string>
+    <string name="title_lifecycle_view_model">ЖЦ с ViewModel</string>
+    <string name="example">Клик %d</string>
+</resources>
