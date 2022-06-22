@@ -1,10 +1,10 @@
-package com.example.myapplication.lifecycle.viewmodel
+package ru.surfstudio.summerschool.lifecycle.viewmodel
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityExampleLifecycleBinding
+import ru.surfstudio.summerschool.R
+import ru.surfstudio.summerschool.databinding.ActivityExampleLifecycleBinding
 
 class LifecycleViewModelActivity : AppCompatActivity() {
 

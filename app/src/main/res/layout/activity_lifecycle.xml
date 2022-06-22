@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context="ru.surfstudio.summerschool.MainActivity">
 
     <Button
         android:id="@+id/btn_default_lifecycle"

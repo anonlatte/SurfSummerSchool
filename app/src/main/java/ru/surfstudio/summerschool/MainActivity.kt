@@ -1,11 +1,11 @@
-package com.example.myapplication
+package ru.surfstudio.summerschool
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.lifecycle.main.LifecycleActivity
+import ru.surfstudio.summerschool.databinding.ActivityMainBinding
+import ru.surfstudio.summerschool.lifecycle.main.LifecycleActivity
 
 class MainActivity : AppCompatActivity() {
 

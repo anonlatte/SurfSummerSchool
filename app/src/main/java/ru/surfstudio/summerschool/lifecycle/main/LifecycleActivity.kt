@@ -1,14 +1,14 @@
-package com.example.myapplication.lifecycle.main
+package ru.surfstudio.summerschool.lifecycle.main
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityLifecycleBinding
-import com.example.myapplication.lifecycle.fixed.LifecycleFixedActivity
-import com.example.myapplication.lifecycle.usual.LifecycleUsualActivity
-import com.example.myapplication.lifecycle.viewmodel.LifecycleViewModelActivity
+import ru.surfstudio.summerschool.R
+import ru.surfstudio.summerschool.databinding.ActivityLifecycleBinding
+import ru.surfstudio.summerschool.lifecycle.fixed.LifecycleFixedActivity
+import ru.surfstudio.summerschool.lifecycle.usual.LifecycleUsualActivity
+import ru.surfstudio.summerschool.lifecycle.viewmodel.LifecycleViewModelActivity
 
 class LifecycleActivity : AppCompatActivity() {
 

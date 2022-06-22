@@ -1,4 +1,4 @@
-package com.example.myapplication.lifecycle.viewmodel
+package ru.surfstudio.summerschool.lifecycle.viewmodel
 
 import androidx.lifecycle.ViewModel
 
