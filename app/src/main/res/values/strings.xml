@@ -6,4 +6,8 @@
     <string name="title_lifecycle_view_model">ЖЦ с ViewModel</string>
     <string name="example">Клик %d</string>
     <string name="empty_contacts">Нет похожих контактов</string>
+    <string name="btn_dismiss">Пропустить</string>
+    <string name="btn_merge">Объединить</string>
+    <string name="title_confirmation">Найдено %d контактов</string>
+    <string name="title_confirmation_not_found">Контакты не были найдены</string>
 </resources>

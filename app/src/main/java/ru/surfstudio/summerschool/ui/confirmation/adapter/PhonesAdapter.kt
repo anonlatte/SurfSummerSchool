@@ -1,12 +1,12 @@
-package ru.surfstudio.summerschool.confirmation.adapter
+package ru.surfstudio.summerschool.ui.confirmation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import ru.surfstudio.summerschool.confirmation.adapter.PhonesAdapter.PhoneViewHolder
 import ru.surfstudio.summerschool.databinding.ItemPhoneBinding
+import ru.surfstudio.summerschool.ui.confirmation.adapter.PhonesAdapter.PhoneViewHolder
 
 class PhonesAdapter : ListAdapter<String, PhoneViewHolder>(DiffUtilItemCallback()) {
 

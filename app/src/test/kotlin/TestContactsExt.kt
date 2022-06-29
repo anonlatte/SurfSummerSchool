@@ -1,11 +1,9 @@
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import ru.surfstudio.summerschool.MainActivity
 import ru.surfstudio.summerschool.data.ContactInfo
 import ru.surfstudio.summerschool.data.SimilarContactsPair
+import ru.surfstudio.summerschool.ui.main.MainActivity
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -30,22 +28,6 @@ class TestContactsExt {
             "79813175089",
         )
         assertThat(result, equalTo(MainActivity.filterSimilarPhones(source)))
-    }
-
-    @Test
-    fun testContainsPhones() {
-        val source = listOf(
-            "79948909990",
-            "89948909990",
-            "79027712531",
-            "79813175089",
-        )
-        val containedPhone = "79813175089"
-        val randomPhone = "79517854732"
-
-        assertTrue(MainActivity.containsPhone(source, containedPhone))
-        assertFalse(MainActivity.containsPhone(emptyList(), containedPhone))
-        assertFalse(MainActivity.containsPhone(source, randomPhone))
     }
 
     @Test

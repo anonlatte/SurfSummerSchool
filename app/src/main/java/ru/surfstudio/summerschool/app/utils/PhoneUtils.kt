@@ -1,4 +1,4 @@
-package ru.surfstudio.summerschool
+package ru.surfstudio.summerschool.app.utils
 
 /**
  * @property LENGTH_CODE_RU длина кода российского номера
