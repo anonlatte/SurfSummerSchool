@@ -5,4 +5,5 @@
     <string name="title_lifecycle_fixed">ЖЦ с сохранением</string>
     <string name="title_lifecycle_view_model">ЖЦ с ViewModel</string>
     <string name="example">Клик %d</string>
+    <string name="empty_contacts">Нет похожих контактов</string>
 </resources>
