@@ -3,6 +3,7 @@ package ru.surfstudio.summerschool
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
@@ -14,6 +15,7 @@ import ru.surfstudio.summerschool.PhoneUtils.LENGTH_PHONE_WITH_CODE
 import ru.surfstudio.summerschool.confirmation.ConfirmationActivity
 import ru.surfstudio.summerschool.data.ContactInfo
 import ru.surfstudio.summerschool.data.PhotoInfo
+import ru.surfstudio.summerschool.data.SimilarContactsPair
 import ru.surfstudio.summerschool.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 cursor.getColumnIndex(PhotoInfo.FIELD_PHOTO_THUMB_URI)
             )
             val photoInfo = if (contactPhoto != null && contactPhotoThumb != null) {
-                PhotoInfo(contactPhoto, contactPhotoThumb)
+                PhotoInfo(Uri.parse(contactPhoto), Uri.parse(contactPhotoThumb))
             } else {
                 null
             }

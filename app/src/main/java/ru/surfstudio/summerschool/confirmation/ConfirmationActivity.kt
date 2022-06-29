@@ -4,17 +4,21 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import ru.surfstudio.summerschool.R
-import ru.surfstudio.summerschool.SimilarContactsPair
+import ru.surfstudio.summerschool.confirmation.adapter.ContactsAdapter
+import ru.surfstudio.summerschool.data.SimilarContactsPair
 import ru.surfstudio.summerschool.databinding.ActivityConfirmationBinding
 
 class ConfirmationActivity : Activity() {
 
     private lateinit var binding: ActivityConfirmationBinding
+    private val contactsAdapter = ContactsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConfirmationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.rvContacts.adapter = contactsAdapter
 
         val contactsInfo: ArrayList<SimilarContactsPair> = intent.extras?.getParcelableArrayList(
             ARG_CONTACTS_LIST
@@ -27,7 +31,7 @@ class ConfirmationActivity : Activity() {
     }
 
     private fun showContacts(contactsInfo: ArrayList<SimilarContactsPair>) {
-        Toast.makeText(this, contactsInfo.toString(), Toast.LENGTH_LONG).show()
+        contactsAdapter.submitList(contactsInfo)
     }
 
     private fun showEmptyScreen() {

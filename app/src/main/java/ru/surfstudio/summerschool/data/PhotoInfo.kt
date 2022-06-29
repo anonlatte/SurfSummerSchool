@@ -1,13 +1,14 @@
 package ru.surfstudio.summerschool.data
 
+import android.net.Uri
 import android.os.Parcelable
 import android.provider.ContactsContract
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PhotoInfo(
-    val photoUri: String?,
-    val photoThumbUri: String?
+    val photoUri: Uri,
+    val photoThumbUri: Uri
 ) : Parcelable {
     companion object {
         const val FIELD_PHOTO_URI = ContactsContract.Contacts.PHOTO_URI

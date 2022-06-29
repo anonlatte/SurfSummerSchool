@@ -9,6 +9,7 @@
         android:id="@+id/iv_avatar"
         android:layout_width="@dimen/size_avatar"
         android:layout_height="@dimen/size_avatar"
+        android:layout_marginVertical="@dimen/margin_normal"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,23 +20,24 @@
         android:id="@+id/tv_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toTopOf="@id/rv_phone"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
         tools:text="@tools:sample/full_names" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_phone"
+        android:id="@+id/rv_phones"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
         app:layout_constraintTop_toBottomOf="@id/tv_name"
         tools:itemCount="2"
-        tools:listitem="@layout/item_contact" />
+        tools:listitem="@layout/item_phone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

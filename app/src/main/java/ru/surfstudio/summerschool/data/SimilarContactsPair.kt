@@ -1,15 +1,16 @@
-package ru.surfstudio.summerschool
+package ru.surfstudio.summerschool.data
 
 import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
-import ru.surfstudio.summerschool.data.ContactInfo
 
 @Parcelize
 data class SimilarContactsPair(
     val contact: ContactInfo,
-    val similarContact: List<ContactInfo>
+    val similarContacts: List<ContactInfo>
 ) : Parcelable {
+    @IgnoredOnParcel
     val similarPhones: Set<String> = contact.phones?.intersect(
-        similarContact.flatMap { it.phones.orEmpty() }.toSet()
+        similarContacts.flatMap { it.phones.orEmpty() }.toSet()
     ).orEmpty()
 }
