@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             if (arePermissionsGranted()) {
                 goToConfirmation()
             } else {
-                contactsPermissionsLauncher.launch(android.Manifest.permission.READ_CONTACTS)
+                contactsPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
             }
         }
     }

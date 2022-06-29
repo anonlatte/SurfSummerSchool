@@ -1,7 +1,6 @@
 package ru.surfstudio.summerschool.ui.confirmation
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ru.surfstudio.summerschool.R
 import ru.surfstudio.summerschool.app.ui.SpacesItemDecoration
@@ -30,6 +29,7 @@ class ConfirmationActivity : AppCompatActivity() {
                     }
                 })
             }
+            contactsAdapter.setHasStableIds(true)
             adapter = contactsAdapter
             addItemDecoration(SpacesItemDecoration(16.px))
         }
@@ -44,6 +44,20 @@ class ConfirmationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        contactsAdapter.submitList(
+            savedInstanceState.getParcelableArrayList(
+                ARG_CONTACTS_LIST
+            ) ?: arrayListOf()
+        )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState.apply {
+            putParcelableArrayList(ARG_CONTACTS_LIST, ArrayList(contactsAdapter.currentList))
+        })
+    }
+
     override fun onDestroy() {
         binding.rvContacts.adapter = null
         super.onDestroy()
@@ -56,7 +70,6 @@ class ConfirmationActivity : AppCompatActivity() {
 
     private fun showEmptyScreen() {
         title = getString(R.string.title_confirmation_not_found)
-        Toast.makeText(this, R.string.empty_contacts, Toast.LENGTH_LONG).show()
     }
 
     companion object {

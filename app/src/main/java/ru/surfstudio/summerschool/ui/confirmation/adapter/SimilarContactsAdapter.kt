@@ -42,6 +42,7 @@ class SimilarContactsAdapter(val onCheckedChangeListener: (SimilarContactsPair) 
                 submitList(listOf(contactsPair.contact) + contactsPair.similarContacts)
             }
             checkbox.isChecked = contactsPair.isMarked
+            flowButtons.isVisible = !contactsPair.isMarked
             checkbox.setOnClickListener {
                 onCheckedChangeListener(contactsPair.copy(isMarked = checkbox.isChecked))
                 flowButtons.isVisible = !checkbox.isChecked
