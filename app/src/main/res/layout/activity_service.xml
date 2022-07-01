@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="ru.surfstudio.summerschool.MainActivity">
+    tools:context="ru.surfstudio.summerschool.service.PlayerServiceActivity">
 
-    <Button
-        android:id="@+id/btn_lifecycle"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_service_control"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Жизненный цикл" />
-
-    <Button
-        android:id="@+id/btn_service"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Сервис" />
+        android:text="@string/btn_start_service"
+        app:icon="@drawable/ic_baseline_play_arrow_24"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </LinearLayout>

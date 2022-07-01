@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.surfstudio.summerschool.databinding.ActivityMainBinding
 import ru.surfstudio.summerschool.lifecycle.main.LifecycleActivity
+import ru.surfstudio.summerschool.service.PlayerServiceActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         with(binding) {
             btnLifecycle.setOnClickListener { open<LifecycleActivity>() }
+            btnService.setOnClickListener { open<PlayerServiceActivity>() }
         }
     }
 

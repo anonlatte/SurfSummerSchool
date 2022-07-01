@@ -5,4 +5,6 @@
     <string name="title_lifecycle_fixed">ЖЦ с сохранением</string>
     <string name="title_lifecycle_view_model">ЖЦ с ViewModel</string>
     <string name="example">Клик %d</string>
+    <string name="btn_start_service">Запустить сервис</string>
+    <string name="btn_stop_service">Остановить сервис</string>
 </resources>

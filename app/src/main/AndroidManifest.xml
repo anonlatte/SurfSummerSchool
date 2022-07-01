@@ -34,6 +34,14 @@
         <activity
             android:name="ru.surfstudio.summerschool.lifecycle.viewmodel.LifecycleViewModelActivity"
             android:exported="true" />
+
+        <activity
+            android:name="ru.surfstudio.summerschool.service.PlayerServiceActivity"
+            android:exported="true" />
+
+        <service
+            android:name="ru.surfstudio.summerschool.service.PlayerService"
+            android:exported="false" />
     </application>
 
 </manifest>
