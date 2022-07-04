@@ -3,160 +3,87 @@ package ru.surfstudio.summerschool.ui.main
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.database.getStringOrNull
-import ru.surfstudio.summerschool.app.utils.PhoneUtils
-import ru.surfstudio.summerschool.data.ContactInfo
-import ru.surfstudio.summerschool.data.PhotoInfo
-import ru.surfstudio.summerschool.data.SimilarContactsPair
+import by.kirich1409.viewbindingdelegate.viewBinding
+import ru.surfstudio.summerschool.R
+import ru.surfstudio.summerschool.app.data.SimilarContactsPair
 import ru.surfstudio.summerschool.databinding.ActivityMainBinding
 import ru.surfstudio.summerschool.ui.confirmation.ConfirmationActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding by viewBinding(ActivityMainBinding::bind, R.id.activity_main_root)
+    private val viewModel: MainViewModel by viewModels()
 
-    private val contactsPermissionsLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(), ::handlePermissions
-    )
+    /*
+    ...
+        // обработчик разрешения через Activity Result API
+        private val contactsPermissionsLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission(),
+            ::handlePermissions
+        )
+    */
 
-    private fun handlePermissions(isGranted: Boolean?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        binding.btnAction.setOnClickListener {
+            if (arePermissionsGranted()) {
+                goToConfirmation()
+            } else {
+                // запрашиваем разрешение на чтение контактов
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.READ_CONTACTS),
+                    REQUEST_CODE_PERMISSIONS
+                )
+                /*
+                ...
+                // запрашиваем разрешение через Activity Result Api
+                contactsPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
+                 */
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            handlePermission(grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED)
+        }
+    }
+
+    private fun handlePermission(isGranted: Boolean?) {
         if (isGranted == true) {
             goToConfirmation()
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        binding.btnAction.setOnClickListener {
-            if (arePermissionsGranted()) {
-                goToConfirmation()
-            } else {
-                contactsPermissionsLauncher.launch(Manifest.permission.READ_CONTACTS)
-            }
-        }
-    }
-
+    /** Получает контакт и переводит на экран [ConfirmationActivity] */
     private fun goToConfirmation() {
-        val contactsInfo = ArrayList<SimilarContactsPair>(groupBySimilar(getContactsInfo()))
+        val contactsInfo = viewModel.getContactsInfo(contentResolver)
+        val groupedContacts = ArrayList<SimilarContactsPair>(contactsInfo)
         val intent = Intent(this, ConfirmationActivity::class.java)
-            .putParcelableArrayListExtra(ConfirmationActivity.ARG_CONTACTS_LIST, contactsInfo)
+            .putParcelableArrayListExtra(ConfirmationActivity.ARG_CONTACTS_LIST, groupedContacts)
         startActivity(intent)
     }
 
+    /** Проверяет наличие разрешения на чтение контактов */
     private fun arePermissionsGranted(): Boolean = ContextCompat.checkSelfPermission(
         this, Manifest.permission.READ_CONTACTS
     ) == PackageManager.PERMISSION_GRANTED
 
-    private fun getContactsInfo(): List<ContactInfo> {
-        val contacts = mutableListOf<ContactInfo>()
-        val cursor = contentResolver.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        ) ?: return contacts
-        while (cursor.moveToNext()) {
-            val id = cursor.getStringOrNull(
-                cursor.getColumnIndex(ContactInfo.FIELD_ID)
-            )
-            val contactName = cursor.getStringOrNull(
-                cursor.getColumnIndex(ContactInfo.FIELD_NAME)
-            )
-            val contactPhoto = cursor.getStringOrNull(
-                cursor.getColumnIndex(PhotoInfo.FIELD_PHOTO_URI)
-            )
-            val contactPhotoThumb = cursor.getStringOrNull(
-                cursor.getColumnIndex(PhotoInfo.FIELD_PHOTO_THUMB_URI)
-            )
-            val photoInfo = if (contactPhoto != null && contactPhotoThumb != null) {
-                PhotoInfo(Uri.parse(contactPhoto), Uri.parse(contactPhotoThumb))
-            } else {
-                null
-            }
-            val phones = getPhonesForContact(contactId = id).takeIf {
-                val columnIndex = cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
-                cursor.getStringOrNull(columnIndex).equals("1")
-            }
-            val contact = ContactInfo(
-                id = id?.toLongOrNull() ?: -1L,
-                name = contactName,
-                photoInfo = photoInfo,
-                phones = filterSimilarPhones(phones)
-            )
-            contacts.add(contact)
-        }
-        cursor.close()
-        return contacts
-    }
-
-    private fun getPhonesForContact(contactId: String?): List<String> {
-        val contactNumbers = mutableListOf<String>()
-        val phonesCursor: Cursor? = contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId,
-            null,
-            null
-        )
-        while (phonesCursor?.moveToNext() == true) {
-            val columnIndex = phonesCursor.getColumnIndex(ContactInfo.FIELD_PHONE)
-            phonesCursor.getStringOrNull(columnIndex)
-                ?.let { contactNumbers.add(it) }
-        }
-        phonesCursor?.close()
-        return contactNumbers
-    }
-
     companion object {
-        fun groupBySimilar(contactInfoList: List<ContactInfo>): List<SimilarContactsPair> {
-            val groupedContacts = mutableListOf<SimilarContactsPair>()
-            contactInfoList.forEach { comparedContact ->
-                contactInfoList.filter { keyContactPhone ->
-                    val alreadyExistsInGroups = {
-                        groupedContacts.any { contactsPair ->
-                            contactsPair.contact.id == keyContactPhone.id
-                        }
-                    }
-                    comparedContact.id != keyContactPhone.id
-                        && !alreadyExistsInGroups()
-                        && getSimilarPhones(comparedContact, keyContactPhone).isNotEmpty()
-                }.let { contactsWithSamePhones ->
-                    if (contactsWithSamePhones.isNotEmpty()) {
-                        groupedContacts.add(
-                            SimilarContactsPair(comparedContact, contactsWithSamePhones)
-                        )
-                    }
-                }
-            }
-            return groupedContacts
-        }
-
-        private fun getSimilarPhones(source: ContactInfo, target: ContactInfo): Set<String> =
-            source.phones?.intersect(target.phones?.toSet().orEmpty()).orEmpty()
-
-        fun filterSimilarPhones(phones: List<String>?): List<String> =
-            phones?.map {
-                val digitsOnly = it.replace("\\D+".toRegex(), "")
-                if (digitsOnly.length == PhoneUtils.LENGTH_PHONE_WITH_CODE && digitsOnly.startsWith(
-                        "8"
-                    )
-                ) {
-                    digitsOnly.replaceFirst("8", "7")
-                } else {
-                    digitsOnly
-                }
-            }
-                ?.distinct()
-                .orEmpty()
+        /** Код для определения типа запроса в [onRequestPermissionsResult] */
+        private const val REQUEST_CODE_PERMISSIONS = 1
     }
 }

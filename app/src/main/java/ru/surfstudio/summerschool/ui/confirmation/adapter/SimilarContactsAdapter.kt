@@ -6,12 +6,14 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import ru.surfstudio.summerschool.data.SimilarContactsPair
+import ru.surfstudio.summerschool.app.data.SimilarContactsPair
 import ru.surfstudio.summerschool.databinding.ItemSimilarContactsBinding
 import ru.surfstudio.summerschool.ui.confirmation.adapter.SimilarContactsAdapter.SimilarContactsAdapter
 
-class SimilarContactsAdapter(val onCheckedChangeListener: (SimilarContactsPair) -> Unit) :
-    ListAdapter<SimilarContactsPair, SimilarContactsAdapter>(DiffUtilItemCallback()) {
+/** Отображает карточки с контактами и номерами телефонов */
+class SimilarContactsAdapter(
+    val onCheckedChangeListener: (SimilarContactsPair) -> Unit
+) : ListAdapter<SimilarContactsPair, SimilarContactsAdapter>(DiffUtilItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarContactsAdapter {
         return SimilarContactsAdapter(
@@ -38,14 +40,15 @@ class SimilarContactsAdapter(val onCheckedChangeListener: (SimilarContactsPair) 
     inner class SimilarContactsAdapter(private val binding: ItemSimilarContactsBinding) :
         ViewHolder(binding.root) {
         fun bind(contactsPair: SimilarContactsPair) = with(binding) {
+            // Создаем список контактов
             rvSimilarContacts.adapter = ContactsAdapter().apply {
                 submitList(listOf(contactsPair.contact) + contactsPair.similarContacts)
             }
             checkbox.isChecked = contactsPair.isMarked
             flowButtons.isVisible = !contactsPair.isMarked
+            // По нажатию вызываем коллбэк для адаптера
             checkbox.setOnClickListener {
                 onCheckedChangeListener(contactsPair.copy(isMarked = checkbox.isChecked))
-                flowButtons.isVisible = !checkbox.isChecked
             }
         }
     }

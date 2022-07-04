@@ -3,9 +3,9 @@ package ru.surfstudio.summerschool.ui.confirmation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.surfstudio.summerschool.R
+import ru.surfstudio.summerschool.app.data.SimilarContactsPair
 import ru.surfstudio.summerschool.app.ui.SpacesItemDecoration
 import ru.surfstudio.summerschool.app.utils.UiUtils.px
-import ru.surfstudio.summerschool.data.SimilarContactsPair
 import ru.surfstudio.summerschool.databinding.ActivityConfirmationBinding
 import ru.surfstudio.summerschool.ui.confirmation.adapter.SimilarContactsAdapter
 

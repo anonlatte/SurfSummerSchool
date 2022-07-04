@@ -4,6 +4,10 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Нужно для пробелов между элементами списка
+ * @param space расстояние в пикселях
+ */
 class SpacesItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(

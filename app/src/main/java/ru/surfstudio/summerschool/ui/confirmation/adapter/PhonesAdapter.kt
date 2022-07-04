@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.surfstudio.summerschool.databinding.ItemPhoneBinding
 import ru.surfstudio.summerschool.ui.confirmation.adapter.PhonesAdapter.PhoneViewHolder
 
+/** Для отображения списка телефонов */
 class PhonesAdapter : ListAdapter<String, PhoneViewHolder>(DiffUtilItemCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhoneViewHolder {
