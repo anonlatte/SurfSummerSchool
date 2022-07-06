@@ -60,8 +60,7 @@
 - [Intent](https://developer.android.com/guide/components/intents-filters)
   и [статья](https://medium.com/@huseyinozkoc/all-things-you-need-to-know-about-intent-in-android-development-cb299b6b5918)
   на medium
-- [Bundle и Parcelable](https://developer.android.com/guide/components/activities/parcelables-and-bundles)
-  - передача данных между экранами
+- [Bundle и Parcelable](https://developer.android.com/guide/components/activities/parcelables-and-bundles) - передача данных между экранами
 - [Статья](https://medium.com/droid-log/android-application-class-a8a1d64c82d1) про класс
   Application
 - [Activity](https://developer.android.com/guide/components/activities/intro-activities)
